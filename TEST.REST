@@ -1,0 +1,1 @@
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/users
