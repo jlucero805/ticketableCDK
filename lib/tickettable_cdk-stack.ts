@@ -74,7 +74,7 @@ export class TickettableCdkStack extends cdk.Stack {
       httpApi: httpApi,
       identifier: 'members-lambda',
       handler: 'members.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset('lambda/members'),
       layers: [ pgLayer, dbLayer ],
       path: '/members',
       methods: [
@@ -94,7 +94,7 @@ export class TickettableCdkStack extends cdk.Stack {
       httpApi: httpApi,
       identifier: 'member-lambda',
       handler: 'member.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset('lambda/members'),
       layers: [ pgLayer, dbLayer ],
       path: '/members/{memberId}',
       methods: [
@@ -105,6 +105,26 @@ export class TickettableCdkStack extends cdk.Stack {
       variables: {
         RDS_PASS: String(RDS_PASS),
       }
+    });
+
+    /**
+     * GET POST
+     * /orgs
+     */
+    new HttpResource(this, 'orgs-resource', {
+      httpApi: httpApi,
+      identifier: 'orgs-lambda',
+      handler: 'orgs.handler',
+      code: lambda.Code.fromAsset('lambda'),
+      layers: [ pgLayer, dbLayer ],
+      path: '/orgs',
+      methods: [
+        HttpMethod.GET,
+        HttpMethod.POST,
+      ],
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      },
     });
 
   }
