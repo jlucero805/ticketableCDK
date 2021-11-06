@@ -8,7 +8,7 @@ POST /members
 {
     username: string,
     email: string,
-    type: string
+    name: string
 }
 
 ##########################
@@ -19,7 +19,8 @@ GET /members/{userId}
 
 PUT /members/{userId}
 {
-    description: string
+    description: string,
+    name: string
 }
 
 DELETE /members/{userId}
@@ -28,10 +29,23 @@ DELETE /members/{userId}
 ### /org ###
 ############
 
-GET POST
-    /orgs
-GET PUT DELETE
-    /orgs/{orgId}
+GET /orgs
+
+POST /orgs
+{
+    username: string,
+    email: string,
+    name: string
+}
+
+####################
+### /org/{orgId} ###
+####################
+
+GET /orgs/{orgId}
+PUT /orgs/{orgId}
+DELETE /orgs/{orgId}
+    
 GET
     /orgs/{orgId}/members
 GET

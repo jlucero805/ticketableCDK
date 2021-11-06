@@ -8,7 +8,7 @@ Content-Type: application/json
 {
     "username": "jluce",
     "email": "jluce@test.com",
-    "type": "member"
+    "name": "Jason"
 }
 
 ### GET /members/{memberId}
@@ -19,5 +19,6 @@ PUT https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members/f697d05a-8e17
 Content-Type: application/json
 
 {
-    "description": "niced"
+    "description": "niced",
+    "name": "named"
 }

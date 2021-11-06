@@ -1,6 +1,5 @@
 import * as cdk from '@aws-cdk/core';
 import { CorsHttpMethod, HttpApi, HttpMethod } from '@aws-cdk/aws-apigatewayv2';
-import { LambdaProxyIntegration } from '@aws-cdk/aws-apigatewayv2-integrations';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as rds from '@aws-cdk/aws-rds';
@@ -115,7 +114,7 @@ export class TickettableCdkStack extends cdk.Stack {
       httpApi: httpApi,
       identifier: 'orgs-lambda',
       handler: 'orgs.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset('lambda/orgs'),
       layers: [ pgLayer, dbLayer ],
       path: '/orgs',
       methods: [
