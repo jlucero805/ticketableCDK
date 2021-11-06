@@ -22,3 +22,7 @@ Content-Type: application/json
     "description": "niced",
     "name": "named"
 }
+
+### GET /members/{memberId}/teams
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members/a262d438-94fa-4e5f-8624-e02c36a29a37/teams
+Authorization: 123

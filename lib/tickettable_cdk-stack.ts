@@ -126,5 +126,45 @@ export class TickettableCdkStack extends cdk.Stack {
       },
     });
 
+    /**
+     * GET PUT DELETE
+     * /orgs/{orgId}
+     */
+    new HttpResource(this, 'org-resource', {
+      httpApi: httpApi,
+      identifier: 'org-lambda',
+      handler: 'org.handler',
+      code: lambda.Code.fromAsset('lambda/orgs'),
+      layers: [ pgLayer, dbLayer],
+      path: '/orgs/{orgId}',
+      methods: [
+        HttpMethod.GET,
+        HttpMethod.PUT,
+        HttpMethod.DELETE,
+      ],
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      },
+    });
+
+    /**
+     * GET
+     * /members/{memberId}/teams
+     */
+    new HttpResource(this, 'member-projects-resource', {
+      httpApi: httpApi,
+      identifier: 'member-projects-lambda',
+      handler: 'memberProjects.handler',
+      code: lambda.Code.fromAsset('lambda/members'),
+      layers: [ pgLayer, dbLayer ],
+      path: '/members/{orgId}/teams',
+      methods: [
+        HttpMethod.GET,
+      ],
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      },
+    });
+
   }
 };
