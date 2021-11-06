@@ -1,0 +1,80 @@
+################
+### /members ###
+################
+
+GET /members
+
+POST /members
+{
+    username: string,
+    email: string,
+    type: string
+}
+
+##########################
+### /member/{memberId} ###
+##########################
+
+GET /members/{userId}
+
+PUT /members/{userId}
+{
+    description: string
+}
+
+DELETE /members/{userId}
+
+
+
+
+GET
+    /members/{userId}/teams
+GET
+    /members/{userId}/projects
+GET
+    /members/{userId}/orgs
+GET
+    /members/{userId}/tickets
+
+GET POST
+    /orgs
+GET PUT DELETE
+    /orgs/{orgId}
+GET
+    /orgs/{orgId}/members
+GET
+    /orgs/{orgId}/teams
+
+GET POST
+    /tickets
+GET PUT DELETE
+    /tickets/{ticketId}
+GET
+    /tickets/{ticketId}/efforts
+GET
+    /tickets/{ticketId}/efforts/{effortId}
+GET
+    /tickets/{ticketId}/comments/{commentId}
+
+GET PUT DELETE
+    /efforts/{effortId}
+
+GET PUT DELETE
+    /comments/{commentId}
+
+
+GET POST
+    /teams
+GET PUT DELETE
+    /teams/{teamId}
+GET
+    /teams/{teamId}/members
+GET
+    /teams/{teamId}/projects
+
+GET POST
+    /projects
+GET PUT DELETE
+    /projects/{projectId}
+GET
+    /projects/{projectId}/tickets

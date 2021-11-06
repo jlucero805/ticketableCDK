@@ -1,1 +1,23 @@
-GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/users
+### GET /members
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members
+
+### POST /members
+POST https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members
+Content-Type: application/json
+
+{
+    "username": "jluce",
+    "email": "jluce@test.com",
+    "type": "member"
+}
+
+### GET /members/{memberId}
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members/a262d438-94fa-4e5f-8624-e02c36a29a37
+
+### PUT /members/{memberId}
+PUT https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/members/f697d05a-8e17-4d6c-ad66-57efd53aa524
+Content-Type: application/json
+
+{
+    "description": "niced"
+}

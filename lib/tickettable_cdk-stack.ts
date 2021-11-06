@@ -5,6 +5,7 @@ import * as lambda from '@aws-cdk/aws-lambda';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as rds from '@aws-cdk/aws-rds';
 import * as sm from '@aws-cdk/aws-secretsmanager';
+import { HttpResource } from './httpResource-construct';
 
 
 export class TickettableCdkStack extends cdk.Stack {
@@ -65,29 +66,46 @@ export class TickettableCdkStack extends cdk.Stack {
       compatibleRuntimes: [ lambda.Runtime.NODEJS_14_X ],
     });
 
-    const usersLambda = new lambda.Function(this, 'users-lambda', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'users.handler',
+    /**
+     * GET POST
+     * /members
+     */
+    new HttpResource(this, 'members-resource', {
+      httpApi: httpApi,
+      identifier: 'members-lambda',
+      handler: 'members.handler',
       code: lambda.Code.fromAsset('lambda'),
-      environment: {
-        RDS_PASS: String(RDS_PASS),
-      },
       layers: [ pgLayer, dbLayer ],
-    });
-
-    httpApi.addRoutes({
-      path: '/users',
+      path: '/members',
       methods: [
         HttpMethod.GET,
         HttpMethod.POST,
+      ],
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      }
+    });
+
+    /**
+     * GET PUT DELETE
+     * /members/{memberId}
+     */
+    new HttpResource(this, 'member-resource', {
+      httpApi: httpApi,
+      identifier: 'member-lambda',
+      handler: 'member.handler',
+      code: lambda.Code.fromAsset('lambda'),
+      layers: [ pgLayer, dbLayer ],
+      path: '/members/{memberId}',
+      methods: [
+        HttpMethod.GET,
         HttpMethod.PUT,
         HttpMethod.DELETE,
       ],
-      integration: new LambdaProxyIntegration({
-        handler: usersLambda,
-      }),
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      }
     });
-
 
   }
 };
