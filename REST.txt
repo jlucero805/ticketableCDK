@@ -45,7 +45,21 @@ POST /orgs
 GET /orgs/{orgId}
 PUT /orgs/{orgId}
 DELETE /orgs/{orgId}
-    
+
+####################################
+### /members/{memberId}/projects ###
+####################################
+
+GET /members/{memberId}/projects
+POST /members/{memberId}/projects
+{
+    name: string
+}
+
+####################################
+### /members/{memberId}/projects ###
+####################################
+
 GET
     /orgs/{orgId}/members
 GET
@@ -55,8 +69,6 @@ GET
 GET /members/{userId}/teams
 POST /members/{userId}/teams
 
-GET /members/{userId}/projects
-POST /members/{userId}/projects
 
 GET /members/{userId}/orgs
 POST /members/{userId}/orgs

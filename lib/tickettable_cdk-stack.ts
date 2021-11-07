@@ -55,6 +55,10 @@ export class TickettableCdkStack extends cdk.Stack {
       secretCompleteArn: 'arn:aws:secretsmanager:us-west-1:026626328389:secret:RDS_PASS-8Azi6t',
     }).secretValue;
 
+    // ##############
+    // ### Layers ###
+    // ##############
+
     const pgLayer = new lambda.LayerVersion(this, 'pg-layer', {
       code: lambda.Code.fromAsset("layers/pg"),
       compatibleRuntimes: [ lambda.Runtime.NODEJS_14_X ],
@@ -65,6 +69,13 @@ export class TickettableCdkStack extends cdk.Stack {
       compatibleRuntimes: [ lambda.Runtime.NODEJS_14_X ],
     });
 
+    const utils = new lambda.LayerVersion(this, 'utils-layer', {
+      code: lambda.Code.fromAsset("layers/utils"),
+      compatibleRuntimes: [ lambda.Runtime.NODEJS_14_X ],
+    });
+
+    const baseLayers = [utils, pgLayer, dbLayer];
+
     /**
      * GET POST
      * /members
@@ -74,7 +85,7 @@ export class TickettableCdkStack extends cdk.Stack {
       identifier: 'members-lambda',
       handler: 'members.handler',
       code: lambda.Code.fromAsset('lambda/members'),
-      layers: [ pgLayer, dbLayer ],
+      layers: baseLayers,
       path: '/members',
       methods: [
         HttpMethod.GET,
@@ -94,7 +105,7 @@ export class TickettableCdkStack extends cdk.Stack {
       identifier: 'member-lambda',
       handler: 'member.handler',
       code: lambda.Code.fromAsset('lambda/members'),
-      layers: [ pgLayer, dbLayer ],
+      layers: baseLayers,
       path: '/members/{memberId}',
       methods: [
         HttpMethod.GET,
@@ -115,7 +126,7 @@ export class TickettableCdkStack extends cdk.Stack {
       identifier: 'orgs-lambda',
       handler: 'orgs.handler',
       code: lambda.Code.fromAsset('lambda/orgs'),
-      layers: [ pgLayer, dbLayer ],
+      layers: baseLayers,
       path: '/orgs',
       methods: [
         HttpMethod.GET,
@@ -135,7 +146,7 @@ export class TickettableCdkStack extends cdk.Stack {
       identifier: 'org-lambda',
       handler: 'org.handler',
       code: lambda.Code.fromAsset('lambda/orgs'),
-      layers: [ pgLayer, dbLayer],
+      layers: baseLayers,
       path: '/orgs/{orgId}',
       methods: [
         HttpMethod.GET,
@@ -148,18 +159,19 @@ export class TickettableCdkStack extends cdk.Stack {
     });
 
     /**
-     * GET
-     * /members/{memberId}/teams
+     * GET POST
+     * /members/{memberId}/projects
      */
     new HttpResource(this, 'member-projects-resource', {
       httpApi: httpApi,
       identifier: 'member-projects-lambda',
       handler: 'memberProjects.handler',
       code: lambda.Code.fromAsset('lambda/members'),
-      layers: [ pgLayer, dbLayer ],
-      path: '/members/{orgId}/teams',
+      layers: baseLayers,
+      path: '/members/{memberId}/projects',
       methods: [
         HttpMethod.GET,
+        HttpMethod.POST,
       ],
       variables: {
         RDS_PASS: String(RDS_PASS),

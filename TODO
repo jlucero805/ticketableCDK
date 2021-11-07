@@ -1,3 +1,8 @@
 -Create layer for queries
     -> All queries should be in the layer
     -> all should take in pool as an argument
+
+
+LEFT OFF:
+    memberProjects.js
+        -> was writing GET query
