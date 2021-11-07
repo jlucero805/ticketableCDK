@@ -39,3 +39,34 @@ Content-Type: application/json
 {
     "name": "ticketable"
 }
+
+### GET /orgs
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/orgs
+Authorization: 123
+
+### POST /orgs
+POST https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/orgs
+Authorization: 123
+Content-Type: application/json
+
+{
+    "username": "Amazon",
+    "email": "amazon@test.com",
+    "name": "Amazon"
+}
+###
+f00f5603-d518-46e4-a8e5-1326b3bf19df
+### GET /projects/{projectId}/tickets
+GET https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/projects/f00f5603-d518-46e4-a8e5-1326b3bf19df/tickets
+Authorization: 123
+
+### POST /projects/{projectId}/tickets
+POST https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com/projects/f00f5603-d518-46e4-a8e5-1326b3bf19df/tickets
+Authorization: 123
+Content-Type: application/json
+
+{
+    "title": "Something bad happened",
+    "priority": "low",
+    "description": "something bad happend rip"
+}

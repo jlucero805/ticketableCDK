@@ -17,7 +17,7 @@ export class TickettableCdkStack extends cdk.Stack {
 
     const db = new rds.DatabaseInstance(this, 'db', {
       engine: rds.DatabaseInstanceEngine.postgres({ version: rds.PostgresEngineVersion.VER_13_4 }),
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.SMALL),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
       vpc: new ec2.Vpc(this, "VPC"),
       allocatedStorage: 20,
       maxAllocatedStorage: 30,
@@ -169,6 +169,26 @@ export class TickettableCdkStack extends cdk.Stack {
       code: lambda.Code.fromAsset('lambda/members'),
       layers: baseLayers,
       path: '/members/{memberId}/projects',
+      methods: [
+        HttpMethod.GET,
+        HttpMethod.POST,
+      ],
+      variables: {
+        RDS_PASS: String(RDS_PASS),
+      },
+    });
+
+    /**
+     * GET POST
+     * /projects/{projectId}/tickets
+     */
+    new HttpResource(this, 'project-tickets-resource', {
+      httpApi: httpApi,
+      identifier: 'project-tickets-lambda',
+      handler: 'projectTickets.handler',
+      code: lambda.Code.fromAsset('lambda/projects'),
+      layers: baseLayers,
+      path: '/projects/{projectId}/tickets',
       methods: [
         HttpMethod.GET,
         HttpMethod.POST,

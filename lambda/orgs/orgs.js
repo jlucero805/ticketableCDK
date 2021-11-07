@@ -27,7 +27,7 @@ exports.handler = async event => {
 
     if (httpMethod == 'POST') {
         const body = JSON.parse(event.body);
-        if (validateBody(body, ['username', 'email', 'name'])) {
+        if (!validateBody(body, ['username', 'email', 'name'])) {
             return { statusCode: 400, };
         };
         try {
@@ -36,7 +36,7 @@ exports.handler = async event => {
                     (username, email, name, type)
                 VALUES
                     ($1, $2, $3, 'org');
-            `);
+            `, [body.username, body.email, body.name]);
             return {
                 body: JSON.stringify({ success: 'ok' }, null, 2),
                 statusCode: 201,

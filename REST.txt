@@ -75,37 +75,36 @@ POST /members/{userId}/orgs
 
 GET /members/{userId}/tickets
 
-
 GET POST
     /tickets
+
 GET PUT DELETE
     /tickets/{ticketId}
-GET
+
+GET POST
     /tickets/{ticketId}/efforts
-GET
-    /tickets/{ticketId}/efforts/{effortId}
-GET
-    /tickets/{ticketId}/comments/{commentId}
-
-GET PUT DELETE
-    /efforts/{effortId}
-
-GET PUT DELETE
-    /comments/{commentId}
-
-
 GET POST
-    /teams
-GET PUT DELETE
-    /teams/{teamId}
-GET
-    /teams/{teamId}/members
-GET
-    /teams/{teamId}/projects
+    /tickets/{ticketId}/comments
 
-GET POST
-    /projects
-GET PUT DELETE
-    /projects/{projectId}
-GET
-    /projects/{projectId}/tickets
+GET /efforts/{effortId}
+PUT /efforts/{effortId}
+DELETE /efforts/{effortId}
+
+GET /comments/{commentId}
+PUT /comments/{commentId}
+DELETE /comments/{commentId}
+
+
+GET /teams/{teamId}
+PUT /teams/{teamId}
+DELETE /teams/{teamId}
+
+GET /teams/{teamId}/members
+
+GET /teams/{teamId}/projects
+
+GET /projects/{projectId}
+PUT /projects/{projectId}
+DELETE /projects/{projectId}
+
+GET /projects/{projectId}/tickets
