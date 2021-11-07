@@ -2,8 +2,10 @@ import { expect as expectCDK, matchTemplate, MatchStyle } from '@aws-cdk/assert'
 import * as cdk from '@aws-cdk/core';
 import * as TickettableCdk from '../lib/tickettable_cdk-stack';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-const url = 'https://2hfpxnawm7.execute-api.us-west-1.amazonaws.com'
+const url = process.env.BASE_ENDPOINT;
 
 test('GET /members', async () => {
   const res = await axios.get(url + '/members', {
